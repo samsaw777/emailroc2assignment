@@ -59,6 +59,8 @@ p {
   border-radius: 10px;
   border: 2px solid var(--border);
   margin-top: 15px;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 .emailProfile {
@@ -83,9 +85,14 @@ p {
 .emailList {
   margin-top: 10px;
   display: grid;
+  /* grid-template-columns: 40% 57%; */
+  /* grid-gap: 2%; */
+  height: 89vh;
+}
+
+.emailOpen {
   grid-template-columns: 40% 57%;
   grid-gap: 2%;
-  height: 89vh;
 }
 
 .emaillist {
@@ -105,6 +112,11 @@ p {
   font-weight: 400;
   font-size: 15px;
 }
+.date > span {
+  font-weight: 400 !important;
+  color: var(--text);
+}
+
 .emailBody > p > span > span {
   font-weight: 700;
 }
@@ -112,6 +124,10 @@ p {
 .date {
   display: flex;
   gap: 5px;
+}
+
+.date > span {
+  font-weight: normal;
 }
 
 .emailFull {
@@ -134,7 +150,7 @@ p {
 .emailDescription {
   margin-top: 10px;
   height: 73vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-right: 5px;
 }
 
@@ -150,9 +166,10 @@ p {
   cursor: pointer;
 }
 
-.emailDescription > p {
-  font-size: 13px;
-  margin-top: 10px;
+.emailDescription > div > p {
+  font-size: 14px;
+  margin-top: 15px;
+  padding-right: 20px;
 }
 
 .emailTitle > span {
@@ -191,13 +208,24 @@ p {
   font-size: 20px;
 }
 
-.emailTitle > .favourite {
+.emailTitle > span > .favourite {
   padding: 5px 10px;
   background-color: var(--accent);
   font-size: 12px;
   border-radius: 10px;
   cursor: pointer;
   color: #fff;
+  font-weight: normal;
+  margin-right: 20px;
+}
+.emailTitle > span > .cancel {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-color: var(--border);
+  font-size: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
   font-weight: normal;
   margin-right: 20px;
 }
