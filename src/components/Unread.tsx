@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { emails, Emails, localEmails } from "../Reducer/emailSlice";
 import Email from "./Email";
 
-const Favourites = () => {
+const UnRead = () => {
   const emailLists = useSelector(emails);
   const LocalEmails = useSelector(localEmails);
 
@@ -11,7 +11,7 @@ const Favourites = () => {
   return (
     <div className="emaillist">
       {emailLists.map((email: Emails, index: number) => {
-        if (LocalEmails[parseInt(email.id)]?.isFavourite) {
+        if (!LocalEmails[parseInt(email.id)]?.isRead) {
           return (
             <div key={index}>
               <Email
@@ -32,4 +32,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default UnRead;

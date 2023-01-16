@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { emailId, emailSender, setEmailId } from "../Reducer/emailSlice";
+import {
+  emailId,
+  emailSender,
+  setEmailId,
+  localEmails,
+  setLocalEmails,
+} from "../Reducer/emailSlice";
 
 const EmailDescription = () => {
   const id = useSelector(emailId);
   const sender = useSelector(emailSender);
   const date = new Date(sender.date);
   const dispatch = useDispatch();
-  let response: any = localStorage.getItem("emails");
-  let emails = JSON.parse(response);
+  const LocalEmails = useSelector(localEmails);
 
   const [emailDescription, setEmailDescription] = useState<{
     id: string;
     body: string;
   }>({ id: "", body: "" });
-  const [localEmails, setLocalEmails] = useState<any>({});
 
   const FetchEmailDetails = async () => {
     await axios
@@ -24,8 +28,6 @@ const EmailDescription = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    setLocalEmails({ ...emails });
   };
 
   useEffect(() => {
@@ -33,29 +35,22 @@ const EmailDescription = () => {
   }, [id]);
 
   const makeFavourite = () => {
-    let favrouiteList: any = {};
+    const newLocalEmails = JSON.parse(JSON.stringify(LocalEmails));
+    newLocalEmails[id].isFavourite = true;
 
-    if (!emails[id]) {
-      favrouiteList = { ...emails, [id]: { isFavourite: true, isRead: true } };
+    localStorage.setItem("emails", JSON.stringify(newLocalEmails));
 
-      localStorage.setItem("emails", JSON.stringify(favrouiteList));
-
-      response = localStorage.getItem("emails");
-      emails = JSON.parse(response);
-      setLocalEmails({ ...emails });
-    } else if (emails[id] && emails[id].isFavourite) {
-      return;
-    }
+    dispatch(setLocalEmails(newLocalEmails));
   };
 
   const removeFavourites = () => {
-    delete emails[id];
+    const newLocalEmails = JSON.parse(JSON.stringify(LocalEmails));
 
-    localStorage.setItem("emails", JSON.stringify(emails));
+    newLocalEmails[id].isFavourite = false;
 
-    response = localStorage.getItem("emails");
-    emails = JSON.parse(response);
-    setLocalEmails({ ...emails });
+    localStorage.setItem("emails", JSON.stringify(newLocalEmails));
+
+    dispatch(setLocalEmails(newLocalEmails));
   };
 
   return (
@@ -71,12 +66,12 @@ const EmailDescription = () => {
               <span
                 className="favourite"
                 onClick={
-                  localEmails[id] && localEmails[id].isFavourite
+                  LocalEmails[id] && LocalEmails[id].isFavourite
                     ? () => removeFavourites()
                     : () => makeFavourite()
                 }
               >
-                {localEmails[id] && localEmails[id].isFavourite
+                {LocalEmails[id] && LocalEmails[id].isFavourite
                   ? "Remove from favourite"
                   : "Mark as favourite"}
               </span>

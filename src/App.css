@@ -55,7 +55,7 @@ p {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   border-radius: 10px;
   border: 2px solid var(--border);
   margin-top: 15px;
@@ -79,7 +79,7 @@ p {
 .emailBody {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 10px;
 }
 
 .emailList {
@@ -228,4 +228,10 @@ p {
   color: var(--text);
   font-weight: normal;
   margin-right: 20px;
+}
+
+.isFavourite {
+  color: var(--accent) !important;
+  margin-left: 10px;
+  font-weight: bold !important;
 }

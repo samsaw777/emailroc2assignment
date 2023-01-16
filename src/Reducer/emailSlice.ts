@@ -13,10 +13,19 @@ export interface Emails {
   };
 }
 
+interface EmailStatus {
+  isFavourite: boolean;
+  isRead: boolean;
+}
+
 interface EmailSenderInformation {
   id: string;
   name: string;
   date: number;
+}
+
+interface LocalEmails {
+  [key: string]: EmailStatus;
 }
 
 interface InititalState {
@@ -24,6 +33,7 @@ interface InititalState {
   isEmailOpen: boolean;
   emailId: string;
   emailSender: EmailSenderInformation;
+  localEmails: LocalEmails;
 }
 
 const initialState: InititalState = {
@@ -35,6 +45,7 @@ const initialState: InititalState = {
     name: "",
     date: 0,
   },
+  localEmails: {},
 };
 
 export const emailsSlice = createSlice({
@@ -65,14 +76,19 @@ export const emailsSlice = createSlice({
     ) => {
       state.emailSender = action.payload;
     },
+    setLocalEmails: (state, action: PayloadAction<LocalEmails>) => {
+      state.localEmails = action.payload;
+    },
   },
 });
 
-export const { getEmails, setIsOpen, setEmailId } = emailsSlice.actions;
+export const { getEmails, setIsOpen, setEmailId, setLocalEmails } =
+  emailsSlice.actions;
 
 export const emails = (state: RootState) => state.email.emails;
 export const isEmailOpen = (state: RootState) => state.email.isEmailOpen;
 export const emailId = (state: RootState) => state.email.emailId;
 export const emailSender = (state: RootState) => state.email.emailSender;
+export const localEmails = (state: RootState) => state.email.localEmails;
 
 export default emailsSlice.reducer;
