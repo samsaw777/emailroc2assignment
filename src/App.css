@@ -44,13 +44,6 @@ p {
   gap: 10px;
 }
 
-.active {
-  background-color: var(--filter);
-  padding: 5px 15px;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
 .emailCard {
   display: flex;
   align-items: center;
@@ -234,4 +227,45 @@ p {
   color: var(--accent) !important;
   margin-left: 10px;
   font-weight: bold !important;
+}
+
+.menu {
+  cursor: pointer;
+  padding: 5px 15px;
+}
+
+.menu:hover {
+  background-color: var(--filter);
+
+  border-radius: 30px;
+}
+
+.active {
+  background-color: var(--filter);
+  border-radius: 30px;
+}
+
+.read {
+  background-color: var(--read) !important;
+}
+
+.pagination {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.page__number {
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.page__active {
+  background-color: var(--read) !important;
 }

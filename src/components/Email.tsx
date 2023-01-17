@@ -10,6 +10,7 @@ import {
 interface Props {
   emailInfo: Emails;
   isFavorite?: boolean;
+  isRead?: boolean;
 }
 
 const Email = ({
@@ -21,6 +22,7 @@ const Email = ({
     from: { email, name },
   },
   isFavorite,
+  isRead,
 }: Props) => {
   const dateFormat = new Date(date);
   const dispatch = useDispatch();
@@ -50,7 +52,10 @@ const Email = ({
   };
 
   return (
-    <div className="emailCard" onClick={() => markReadEmail()}>
+    <div
+      className={`${isRead && "read"} emailCard`}
+      onClick={() => markReadEmail()}
+    >
       <span className="emailProfile">{name.charAt(0).toUpperCase()}</span>
       <section className="emailBody">
         <p>

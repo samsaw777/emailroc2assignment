@@ -4,18 +4,21 @@ import ReadEmail from "../components/ReadEmails";
 import Unread from "../components/Unread";
 
 export enum ComponentName {
-  UNREAD = "unread",
-  READ = "read",
-  FAVOURITE = "favorite",
+  ALL = 0,
+  UNREAD = 1,
+  READ = 2,
+  FAVOURITE = 3,
 }
 
 const renderComponents = (componentName: string) => {
   switch (componentName) {
-    case ComponentName.UNREAD:
+    case ComponentName.ALL.toString():
+      return <EmailList />;
+    case ComponentName.UNREAD.toString():
       return <Unread />;
-    case ComponentName.READ:
+    case ComponentName.READ.toString():
       return <ReadEmail />;
-    case ComponentName.FAVOURITE:
+    case ComponentName.FAVOURITE.toString():
       return <FavouriteList />;
     default:
       return <EmailList />;

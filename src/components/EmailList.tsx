@@ -1,9 +1,18 @@
-import { useSelector } from "react-redux";
-import { emails, Emails } from "../Reducer/emailSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  emails,
+  Emails,
+  localEmails,
+  pageNumber,
+  setPageNumber,
+} from "../Reducer/emailSlice";
 import Email from "./Email";
 
 const EmailList = () => {
   const emailLists = useSelector(emails);
+  const LocalEmails = useSelector(localEmails);
+  const Page = useSelector(pageNumber);
+  const dispatch = useDispatch();
 
   return (
     <div className="emaillist">
@@ -18,11 +27,24 @@ const EmailList = () => {
                 date: email.date,
                 from: email.from,
               }}
-              isFavorite={true}
+              isFavorite={LocalEmails[email.id]?.isFavourite ? true : false}
+              isRead={LocalEmails[email.id]?.isRead ? true : false}
             />
           </div>
         );
       })}
+      <div className="pagination">
+        {[...Array(2)].map((_, index: number) => {
+          return (
+            <span
+              className={`page__number ${Page === index + 1 && "page__active"}`}
+              onClick={() => dispatch(setPageNumber(index + 1))}
+            >
+              {index + 1}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 };

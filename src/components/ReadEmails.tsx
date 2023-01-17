@@ -22,7 +22,8 @@ const Read = () => {
                   date: email.date,
                   from: email.from,
                 }}
-                isFavorite={true}
+                isFavorite={LocalEmails[email.id]?.isFavourite ? true : false}
+                isRead={LocalEmails[email.id]?.isRead ? true : false}
               />
             </div>
           );
