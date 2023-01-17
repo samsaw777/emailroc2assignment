@@ -33,18 +33,22 @@ const EmailList = () => {
           </div>
         );
       })}
-      <div className="pagination">
-        {[...Array(2)].map((_, index: number) => {
-          return (
-            <span
-              className={`page__number ${Page === index + 1 && "page__active"}`}
-              onClick={() => dispatch(setPageNumber(index + 1))}
-            >
-              {index + 1}
-            </span>
-          );
-        })}
-      </div>
+      {emailLists.length > 0 && (
+        <div className="pagination">
+          {[...Array(2)].map((_, index: number) => {
+            return (
+              <span
+                className={`page__number ${
+                  Page === index + 1 && "page__active"
+                }`}
+                onClick={() => dispatch(setPageNumber(index + 1))}
+              >
+                {index + 1}
+              </span>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
