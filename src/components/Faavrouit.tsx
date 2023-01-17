@@ -1,17 +1,18 @@
 import { useSelector } from "react-redux";
-import { emails, Emails, localEmails } from "../Reducer/emailSlice";
+import { allEmails, Emails, localEmails } from "../Reducer/emailSlice";
 import Email from "./Email";
 
 const Favourites = () => {
-  const emailLists = useSelector(emails);
+  const emailLists = useSelector(allEmails);
   const LocalEmails = useSelector(localEmails);
 
-  console.log(LocalEmails);
+  let count: number = 0;
 
   return (
     <div className="emaillist">
       {emailLists.map((email: Emails, index: number) => {
         if (LocalEmails[parseInt(email.id)]?.isFavourite) {
+          count += 1;
           return (
             <div key={index}>
               <Email
@@ -27,6 +28,8 @@ const Favourites = () => {
               />
             </div>
           );
+        } else if (count === 0) {
+          return <div className="no__emails">No emails made favourite!</div>;
         }
       })}
     </div>

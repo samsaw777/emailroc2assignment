@@ -30,6 +30,7 @@ interface LocalEmails {
 
 interface InititalState {
   emails: Emails[];
+  allEmails: Emails[];
   isEmailOpen: boolean;
   emailId: string;
   emailSender: EmailSenderInformation;
@@ -40,6 +41,7 @@ interface InititalState {
 
 const initialState: InititalState = {
   emails: [],
+  allEmails: [],
   isEmailOpen: false,
   emailId: "",
   emailSender: {
@@ -58,6 +60,9 @@ export const emailsSlice = createSlice({
   reducers: {
     getEmails: (state, action: PayloadAction<Emails[]>) => {
       state.emails = [...action.payload];
+    },
+    getAllEmails: (state, action: PayloadAction<Emails[]>) => {
+      state.allEmails = [...action.payload];
     },
     setIsOpen: (state, action: PayloadAction<boolean>) => {
       state.isEmailOpen = action.payload;
@@ -99,6 +104,7 @@ export const {
   setLocalEmails,
   setCurrentMenu,
   setPageNumber,
+  getAllEmails,
 } = emailsSlice.actions;
 
 export const emails = (state: RootState) => state.email.emails;
@@ -108,5 +114,6 @@ export const emailSender = (state: RootState) => state.email.emailSender;
 export const localEmails = (state: RootState) => state.email.localEmails;
 export const currentMenu = (state: RootState) => state.email.currentMenu;
 export const pageNumber = (state: RootState) => state.email.pageNumber;
+export const allEmails = (state: RootState) => state.email.allEmails;
 
 export default emailsSlice.reducer;

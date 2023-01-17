@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { emails, Emails, localEmails } from "../Reducer/emailSlice";
+import { allEmails, Emails, localEmails } from "../Reducer/emailSlice";
 import Email from "./Email";
 
 const UnRead = () => {
-  const emailLists = useSelector(emails);
+  const emailLists = useSelector(allEmails);
   const LocalEmails = useSelector(localEmails);
 
   console.log(LocalEmails);

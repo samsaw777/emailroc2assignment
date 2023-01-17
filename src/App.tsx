@@ -3,7 +3,12 @@ import "./App.css";
 import axios from "axios";
 import Header from "./components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmails, setLocalEmails, pageNumber } from "./Reducer/emailSlice";
+import {
+  getEmails,
+  setLocalEmails,
+  pageNumber,
+  getAllEmails,
+} from "./Reducer/emailSlice";
 import MainContent from "./components/MainContent";
 
 function App() {
@@ -15,7 +20,6 @@ function App() {
       .get(`https://flipkart-email-mock.now.sh/?page=${Page}`)
       .then((response) => {
         dispatch(getEmails(response.data.list));
-        console.log(response.data.total / 5);
       })
       .catch((error) => {
         console.log(error);
@@ -27,8 +31,20 @@ function App() {
     dispatch(setLocalEmails(emails == null ? {} : emails));
   };
 
+  const fetchAllEmails = async () => {
+    await axios
+      .get(`https://flipkart-email-mock.now.sh/`)
+      .then((response) => {
+        dispatch(getAllEmails(response.data.list));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     fetchEmailLists();
+    fetchAllEmails();
   }, [Page]);
 
   return (
